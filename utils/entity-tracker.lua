@@ -23,6 +23,7 @@ local function remove_entity(unit_number)
     if unit_number == nil or type(unit_number) ~= "number" then
         return
     end
+    setup_global()
     global[prefix][e_list][unit_number] = nil
     --print("Removed Unit Number: " .. unit_number)
 end
