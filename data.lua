@@ -1,0 +1,7 @@
+require("utils.name-gen")
+require("prototypes.data-helpers")
+require("prototypes.recipes")
+require("prototypes.items")
+require("prototypes.lane_swapper.entity")
+require("prototypes.lane_balancer.entity")
+require("prototypes.itemless.belt-entities")
