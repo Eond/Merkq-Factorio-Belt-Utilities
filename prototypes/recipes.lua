@@ -302,4 +302,4 @@ table.insert(data.raw.technology["logistics-3"].effects, { type = "unlock-recipe
 
 table.insert(data.raw.technology["logistics"].effects,   { type = "unlock-recipe", recipe = generate_name("lane-balance-main") })
 table.insert(data.raw.technology["logistics-2"].effects, { type = "unlock-recipe", recipe = generate_name("lane-balance-fast-main") })
-table.insert(data.raw.technology["logistics-2"].effects, { type = "unlock-recipe", recipe = generate_name("lane-balance-express-main") })
+table.insert(data.raw.technology["logistics-3"].effects, { type = "unlock-recipe", recipe = generate_name("lane-balance-express-main") })
