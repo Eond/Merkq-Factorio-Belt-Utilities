@@ -1,3 +1,4 @@
+require("util")
 require("utils.name-gen")
 require("prototypes.data-helpers")
 require("prototypes.recipes")

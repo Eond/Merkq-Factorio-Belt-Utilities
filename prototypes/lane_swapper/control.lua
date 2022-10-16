@@ -134,26 +134,29 @@ local function handle_mined(event)
 end
 
 function __on_load_lane_swapper()
-    -- Make sure these entities automatically get tracked by the entity tracker.
-    entity_tracker_track_type(generate_name("lane-swapper-main"))
-    entity_tracker_track_type(generate_name("lane-swapper-real"))
-    entity_tracker_track_type(generate_name("lane-swapper-fast-main"))
-    entity_tracker_track_type(generate_name("lane-swapper-fast-real"))
-    entity_tracker_track_type(generate_name("lane-swapper-express-main"))
-    entity_tracker_track_type(generate_name("lane-swapper-express-real"))
-    -- Initilize the lane swapper types
-    swappers[generate_name("lane-swapper-main")] = {
-        real     = generate_name("lane-swapper-real"),
-        itemless = generate_name("itemless-linked-belt")
+    local speeds = {
+        "base",
+        "fast",
+        "express",
+        "kr-advanced",
+        "kr-superior",
     }
-    swappers[generate_name("lane-swapper-fast-main")] = {
-        real     = generate_name("lane-swapper-fast-real"),
-        itemless = generate_name("itemless-linked-fast-belt")
-    }
-    swappers[generate_name("lane-swapper-express-main")] = {
-        real     = generate_name("lane-swapper-express-real"),
-        itemless = generate_name("itemless-linked-express-belt")
-    }
+    for _, speed in pairs(speeds) do
+        local speed_str = ""
+        if speed ~= "base" then
+            speed_str = speed .. "-"
+        end
+        local main = generate_name("lane-swapper-" .. speed_str .. "main")
+        local real = generate_name("lane-swapper-" .. speed_str .. "real")
+        -- Make sure these entities automatically get tracked by the entity tracker.
+        entity_tracker_track_type(main)
+        entity_tracker_track_type(real)
+        -- Initilize the lane swapper types
+        swappers[main] = {
+            real     = real,
+            itemless = generate_name("itemless-linked-" .. speed_str .. "belt")
+        }
+    end
 end
 
 function __on_built_entity_lane_swapper(event)
@@ -197,5 +200,10 @@ function __on_reconfig_lane_swapper()
         recipes[generate_name("lane-swapper-main")].enabled         = technologies["logistics"].researched
         recipes[generate_name("lane-swapper-fast-main")].enabled    = technologies["logistics-2"].researched
         recipes[generate_name("lane-swapper-express-main")].enabled = technologies["logistics-3"].researched
+        -- Krastorio 2 Support
+        if game.active_mods["Krastorio2"] then
+            recipes[generate_name("lane-swapper-kr-advanced-main")].enabled = technologies["kr-logistic-4"].researched
+            recipes[generate_name("lane-swapper-kr-superior-main")].enabled = technologies["kr-logistic-5"].researched
+        end
     end
 end

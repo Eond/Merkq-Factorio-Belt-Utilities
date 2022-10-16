@@ -5,4 +5,7 @@ function __on_load_itemless()
     entity_tracker_track_type(generate_name("itemless-linked-ultra-belt"))
     entity_tracker_track_type(generate_name("itemless-ultra-belt"))
     entity_tracker_track_type(generate_name("itemless-ultra-splitter"))
+
+    entity_tracker_track_type(generate_name("itemless-linked-kr-advanced-belt"))
+    entity_tracker_track_type(generate_name("itemless-linked-kr-superior-belt"))
 end
