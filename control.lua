@@ -83,14 +83,23 @@ script.on_configuration_changed(function()
     end
 end)
 
-script.on_load(function()
+local loaded = false
+local function load_init()
+    if loaded then
+        return
+    end
     call_on_loads()
     save_event_functions()
-end)
+    loaded = true
+end
+script.on_load(load_init)
+script.on_init(load_init)
 
 script.on_event(defines.events.on_built_entity, function(event)
+    --print("Script Built Handler")
     call_all_events("build", event)
 end)
+
 
 script.on_event(defines.events.on_robot_built_entity, function(event)
     call_all_events("robo_build", event)
