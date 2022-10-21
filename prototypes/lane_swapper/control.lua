@@ -88,11 +88,22 @@ local function build_swapper_backend(main, port1, port2)
     end
 end
 
-local function build_swapper(entity)
-    if swappers[entity.name] == nil then
+local function build_swapper(entity, player, robot)
+    if entity.valid == false or swappers[entity.name] == nil then
         return
     end
     local children = build_visible_1_by_2(entity, swappers)
+    if children == nil then
+        game.print("Can not build swapper here!")
+        game.print("Please replace/mine to fix!, and report this to me with what mods you have installed.")
+        if player ~= nil then
+            player.mine_entity(entity, true)
+        end
+        if robot ~= nil then
+            entity.order_deconstruction(robot.force)
+        end
+        return
+    end
     -- check if we have links, and if we do don't rebuild the backend
     if children.top.linked_belt_neighbour ~= nil and children.bottom.linked_belt_neighbour ~= nil then
         -- remove the the backend entities from the old parent
@@ -160,19 +171,19 @@ function __on_load_lane_swapper()
 end
 
 function __on_built_entity_lane_swapper(event)
-    build_swapper(event.created_entity)
+    build_swapper(event.created_entity, game.players[event.player_index], nil)
 end
 
 function __on_robot_built_entity_lane_swapper(event)
-    build_swapper(event.created_entity)
+    build_swapper(event.created_entity, nil, event.robot)
 end
 
 function __on_script_raised_built_lane_swapper(event)
-    build_swapper(event.entity)
+    build_swapper(event.entity, nil, nil)
 end
 
 function __on_script_raised_revive_lane_swapper(event)
-    build_swapper(event.entity)
+    build_swapper(event.entity, nil, nil)
 end
 
 function __on_player_rotated_entity_lane_swapper(event)

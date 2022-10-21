@@ -49,6 +49,9 @@ function build_visible_1_by_2(entity, lookup)
        fast_replace = true,
        create_build_effect_smoke = false
     })
+    if bot == nil then
+        return nil
+    end
     -- top is the itemless linked belt with no structure sprite
     local top = entity.surface.create_entity({
        name         = lookup[entity.name].itemless,
@@ -59,6 +62,9 @@ function build_visible_1_by_2(entity, lookup)
        fast_replace = true,
        create_build_effect_smoke = false
     })
+    if top == nil then
+        return nil
+    end
 
     -- Handle upgrade case, in wich case the belts
     -- will have neighbors

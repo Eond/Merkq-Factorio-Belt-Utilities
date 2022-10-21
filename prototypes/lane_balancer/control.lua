@@ -161,11 +161,22 @@ local function build_backend(main, port1, port2)
 
 end
 
-local function build_balancer(entity)
-    if balancers[entity.name] == nil then
+local function build_balancer(entity, player, robot)
+    if entity.valid == false or balancers[entity.name] == nil then
         return
     end
     local children = build_visible_1_by_2(entity, balancers)
+    if children == nil then
+        game.print("Can not build balancer here!")
+        game.print("Please replace/mine to fix!, and report this to me with what mods you have installed.")
+        if player ~= nil then
+            player.mine_entity(entity, true)
+        end
+        if robot ~= nil then
+            entity.order_deconstruction(robot.force)
+        end
+        return
+    end
     -- check if we have links, and if we do don't rebuild the backend
     if children.top.linked_belt_neighbour ~= nil and children.bottom.linked_belt_neighbour ~= nil then
         -- remove the the backend entities from the old parent
@@ -231,19 +242,19 @@ function __on_load_lane_balancer()
 end
 
 function __on_built_entity_lane_balancer(event)
-    build_balancer(event.created_entity)
+    build_balancer(event.created_entity, game.players[event.player_index], nil)
 end
 
 function __on_robot_built_entity_lane_balancer(event)
-    build_balancer(event.created_entity)
+    build_balancer(event.created_entity, nil, event.robot)
 end
 
 function __on_script_raised_built_lane_balancer(event)
-    build_balancer(event.entity)
+    build_balancer(event.entity, nil, nil)
 end
 
 function __on_script_raised_revive_lane_balancer(event)
-    build_balancer(event.entity)
+    build_balancer(event.entity, nil, nil)
 end
 
 function __on_player_rotated_entity_lane_balancer(event)
