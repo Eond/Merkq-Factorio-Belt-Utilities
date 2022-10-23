@@ -189,7 +189,7 @@ function belt_fill_transport_line(belt, line_no, item, steps)
     local line = belt.get_transport_line(line_no)
     line.insert_at_back(item)
     for i = 0, steps do
-        local p = i * 0.05
+        local p = i * 0.04
         if line.can_insert_at(p) then
             line.insert_at(p, item)
         end

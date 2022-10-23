@@ -139,7 +139,7 @@ local function build_backend(main, port1, port2)
     for name, entity in pairs(entities) do
         if primed_lines[name] ~= nil then
             for _, line in pairs(primed_lines[name]) do
-                belt_fill_transport_line(entity, line, { name = "copper-plate"}, 8)
+                belt_fill_transport_line(entity, line, { name = "copper-plate"}, 14)
             end
         end
     end

@@ -53,7 +53,11 @@ end
 
 function compound_tracker_get_children_from_id(parent_id)
     setup_global()
-    return global[prefix][parents][parent_id]
+    local child_tbl = global[prefix][parents][parent_id]
+    if child_tbl == nil then
+        return {}
+    end
+    return child_tbl
 end
 
 function compound_tracker_get_children(parent)
@@ -61,7 +65,11 @@ function compound_tracker_get_children(parent)
         return {}
     end
     setup_global()
-    return global[prefix][parents][parent.unit_number]
+    local child_tbl = global[prefix][parents][parent.unit_number]
+    if child_tbl == nil then
+        return {}
+    end
+    return child_tbl
 end
 
 function compound_tracker_get_parent_id(child)
