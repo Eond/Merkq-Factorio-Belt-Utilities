@@ -8,6 +8,9 @@ require("prototypes.itemless.control")
 require("prototypes.lane_swapper.control")
 require("prototypes.lane_balancer.control")
 
+require("compatibility.aai-prog-vehicles")
+
+
 --An automatic event manager I quickly wrote
 --Scans global name space for functions with
 --a matching prefix and gets event functions

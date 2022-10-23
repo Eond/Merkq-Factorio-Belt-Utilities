@@ -1,0 +1,8 @@
+---------------------------------------------------------------------------------------------------
+Version: 0.0.9
+Date: 10. 22. 2022
+  Bugfixes:
+    - None.
+
+  Compatibility:
+    - [AAI Programmable Vehicles] Add children of my compound entities deadzone area denial check white list.

@@ -58,6 +58,14 @@ function entity_tracker_untrack_type(name)
     types[name] = false
 end
 
+function entity_tracker_tracked_types()
+    local names = { }
+    for i, entry in pairs(types) do
+        table.insert(names, i)
+    end
+    return names
+end
+
 function entity_tracker_get_entity(unit_number)
     setup_global()
     local entity = global[prefix][e_list][unit_number]
